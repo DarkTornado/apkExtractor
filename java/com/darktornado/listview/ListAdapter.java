@@ -51,7 +51,7 @@ public class ListAdapter extends BaseAdapter {
         title.setText(item.title);
         subtitle.setText(item.subtitle);
 
-        if(size>0) {
+        if (size > 0) {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size, size, 1);
             params.gravity = Gravity.START | Gravity.CENTER;
             icon.setLayoutParams(params);
@@ -61,7 +61,7 @@ public class ListAdapter extends BaseAdapter {
         return view;
     }
 
-    public void setIconSize(int size){
+    public void setIconSize(int size) {
         this.size = size;
     }
 
