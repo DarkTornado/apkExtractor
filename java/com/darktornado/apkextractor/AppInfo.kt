@@ -2,4 +2,4 @@ package com.darktornado.apkextractor
 
 import android.graphics.drawable.Drawable
 
-class AppInfo(var name: String, var packageName: String, var icon: Drawable, var path: String)
+data class AppInfo(val name: String, val packageName: String, val icon: Drawable, val path: String)
