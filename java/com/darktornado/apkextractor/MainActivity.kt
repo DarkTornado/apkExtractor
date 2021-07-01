@@ -7,7 +7,6 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.ScaleDrawable
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -65,6 +64,7 @@ class MainActivity : Activity() {
             val path = app.applicationInfo.sourceDir
             apps[n] = AppInfo(name, packageName, icon, path)
         }
+        apps.sort()
         return apps
     }
 
