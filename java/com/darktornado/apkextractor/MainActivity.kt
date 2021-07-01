@@ -2,16 +2,20 @@ package com.darktornado.apkextractor
 
 import android.Manifest
 import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.view.Gravity
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemClickListener
@@ -21,9 +25,24 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
+
 class MainActivity : Activity() {
 
     private val sdcard = Environment.getExternalStorageDirectory().absolutePath
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menu.add(0, 0, 0, "Github").setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+        menu.add(0, 1, 0, "License").setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            0 -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/DarkTornado/apkExtractor")))
+            1 -> startActivity(Intent(this, LicenseActivity::class.java))
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
