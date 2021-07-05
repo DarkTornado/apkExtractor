@@ -35,9 +35,6 @@ class LicenseActivity : Activity() {
         setContentView(scroll)
     }
 
-
-    private fun toast(msg: String) = Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-
     private fun dip2px(dips: Int) = Math.ceil(dips * resources.displayMetrics.density.toDouble()).toInt()
 
 }
