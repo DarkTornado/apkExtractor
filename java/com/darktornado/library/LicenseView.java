@@ -80,12 +80,11 @@ public class LicenseView extends LinearLayout {
         }
     }
 
-
     private void showDialog(String title, String msg) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(ctx);
         dialog.setTitle(title);
         dialog.setMessage(msg);
-        dialog.setNegativeButton("닫기", null);
+        dialog.setNegativeButton("Close", null);
         dialog.show();
     }
 
