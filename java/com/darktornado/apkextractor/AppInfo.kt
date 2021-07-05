@@ -2,7 +2,7 @@ package com.darktornado.apkextractor
 
 import android.graphics.drawable.Drawable
 
-data class AppInfo(val name: String, val packageName: String, val icon: Drawable, val path: String) : Comparable<AppInfo> {
+data class AppInfo(val name: String, val packageName: String, val icon: Drawable, val path: String, val version: String) : Comparable<AppInfo> {
 
     override fun compareTo(other: AppInfo): Int {
         val result = this.name.compareTo(other.name)

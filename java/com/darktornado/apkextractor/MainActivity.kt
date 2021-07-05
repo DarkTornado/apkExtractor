@@ -2,6 +2,8 @@ package com.darktornado.apkextractor
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -37,7 +39,7 @@ class MainActivity : Activity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             0 -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/DarkTornado/apkExtractor")))
             1 -> startActivity(Intent(this, LicenseActivity::class.java))
         }
@@ -84,10 +86,7 @@ class MainActivity : Activity() {
         adapter.setItems(items)
         list.adapter = adapter
         list.isFastScrollEnabled = true
-        list.onItemClickListener = OnItemClickListener { parent: AdapterView<*>?, view: View?, pos: Int, id: Long ->
-            File("$sdcard/ApkExtract/").mkdirs()
-            extractApkFile(apps.get(pos)!!)
-        }
+        list.onItemClickListener = OnItemClickListener { _: AdapterView<*>?, _: View?, pos: Int, _: Long -> appInfoDialog(apps.get(pos)!!) }
         layout.addView(list)
         val pad = dip2px(16)
         list.setPadding(pad, pad, pad, pad)
@@ -103,7 +102,8 @@ class MainActivity : Activity() {
             val packageName = app.packageName
             val icon = resizeDrawable(app.applicationInfo.loadIcon(packageManager))
             val path = app.applicationInfo.sourceDir
-            apps[n] = AppInfo(name, packageName, icon, path)
+            val version = app.versionName
+            apps[n] = AppInfo(name, packageName, icon, path, version)
             runOnUiThread { txt.text = "Loading Apps...($n/${apps.size})" }
         }
         apps.sort()
@@ -116,6 +116,20 @@ class MainActivity : Activity() {
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
         return BitmapDrawable(Bitmap.createScaledBitmap(bitmap, dip2px(96), dip2px(96), false))
+    }
+
+    private fun appInfoDialog(app: AppInfo) {
+        val dialog = AlertDialog.Builder(this)
+        val title = if (app.name.length > 10) app.name.substring(9) + "..." else app.name
+        dialog.setTitle(title)
+        dialog.setIcon(app.icon)
+        dialog.setMessage("Name: ${app.name}\nPackage: ${app.packageName}\nVersion: ${app.version}")
+        dialog.setNegativeButton("Close", null)
+        dialog.setPositiveButton("Extract") { _: DialogInterface, _: Int ->
+            File("$sdcard/ApkExtract/").mkdirs()
+            extractApkFile(app)
+        }
+        dialog.show()
     }
 
     private fun extractApkFile(app: AppInfo) {
