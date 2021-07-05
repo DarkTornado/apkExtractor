@@ -15,21 +15,21 @@ public class LicenseView extends LinearLayout {
     private final Context ctx;
     private TextView title, subtitle, license;
 
-    public LicenseView(Context ctx){
+    public LicenseView(Context ctx) {
         super(ctx);
         this.ctx = ctx;
         init();
     }
 
-    public void setTitle(String txt){
+    public void setTitle(String txt) {
         title.setText(Html.fromHtml("<b>" + txt + "<b>"));
     }
 
-    public void setSubtitle(String txt){
+    public void setSubtitle(String txt) {
         subtitle.setText(txt);
     }
 
-    public void setLicense(final String name, String path){
+    public void setLicense(final String name, String path) {
         final String value = loadLicense(path);
         if (value.length() > 1500) {
             license.setText(Html.fromHtml(value.substring(0, 1500).replace("\n", "<br>") + "...<font color='#757575'><b>[Show All]</b></font>"));
@@ -39,8 +39,7 @@ public class LicenseView extends LinearLayout {
         }
     }
 
-
-    private void init(){
+    private void init() {
         setOrientation(1);
         int pad = dip2px(10);
         title = new TextView(ctx);

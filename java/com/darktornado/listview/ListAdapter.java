@@ -61,10 +61,6 @@ public class ListAdapter extends BaseAdapter {
         return view;
     }
 
-    public void setIconSize(int size) {
-        this.size = size;
-    }
-
     public void setItems(ArrayList<Item> list) {
         this.list.clear();
         this.list.addAll(list);
